@@ -3,6 +3,7 @@ package com.example.demo.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -20,6 +21,25 @@ public class RedisUtil {
 
     @Resource
     private RedisTemplate<Object,Object> stringRedisTemplate;
+
+    public boolean getRedisIsOk(String url,int port){
+        boolean flag = true;
+
+        try {
+            Jedis jedis = new Jedis(url,port);
+            String ping = jedis.ping();
+            if(ping.equalsIgnoreCase("PONG")){
+                System.out.println("redis已成功部署");
+                flag = true;
+            }else{
+                flag = false;
+            }
+        }catch (Exception e){
+            System.out.println("redis连接不可用");
+        }
+
+        return flag;
+    }
 
     public void setStringRedisTemplate(RedisTemplate<Object, Object> stringRedisTemplate) {
         stringRedisTemplate.setEnableTransactionSupport(false);
