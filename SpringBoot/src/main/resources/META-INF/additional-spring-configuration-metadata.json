@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "org.springframework.boot.SpringApplicationRunListener",
+      "type": "java.lang.String",
+      "description": "Description for org.springframework.boot.SpringApplicationRunListener."
+  }
+] }
