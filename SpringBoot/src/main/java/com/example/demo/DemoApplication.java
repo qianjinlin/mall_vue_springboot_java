@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 @MapperScan("com.example.demo.Mapper")
 @Slf4j
 public class DemoApplication {
-
+    //drfdqtqypxzfdfhe
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
