@@ -11,8 +11,9 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Objects;
 
 /**
  * @program: SpringBoot_DI
@@ -27,25 +28,22 @@ public class AuthorizeAspect {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    private HttpServletRequest request;
+
 
     @Pointcut("@annotation(com.example.demo.annotation.Authorize))")
     private void pointCut() {
     }
-
-    ;
 
     @Around("pointCut()")
     public Object validate(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
         Method method = ms.getMethod();
         Authorize authorize = method.getAnnotation(Authorize.class);
+
         String accessToken = (String) redisUtil.get("token");
-        String token = "";
-        Object[] params = joinPoint.getArgs();
-        for (Object param : params) {
-            StringBuilder str = new StringBuilder(param.toString());
-            token = str.substring(str.indexOf("(") + 1, str.indexOf(")")).split(",")[0].split("=")[1];
-        }
+        String token = request.getHeader("token");
         if (Objects.equals(token, accessToken) || !authorize.required()) {
             return joinPoint.proceed();
         } else if (accessToken == null || Objects.equals(accessToken, "")) {

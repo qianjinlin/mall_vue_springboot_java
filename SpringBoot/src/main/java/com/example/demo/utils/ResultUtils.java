@@ -1,7 +1,5 @@
 package com.example.demo.utils;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 /**
  * @program: SpringBoot_DI
  * @description: 结果处理类
@@ -37,7 +35,7 @@ public class ResultUtils {
         return RES;
     }
 
-    public static Result<Object> success(String msg,Object data){
+    public static Result<Object> success(String msg, Object data) {
         RES.setMsg(msg);
         RES.setData(data);
         RES.setFlag(true);
@@ -45,9 +43,12 @@ public class ResultUtils {
         return RES;
     }
 
-
-
-
+    public static Result<Object> USER_NOT_FOUND() {
+        RES.setCode(502);
+        RES.setFlag(false);
+        RES.setMsg("抱歉,查不到该用户");
+        return RES;
+    }
 
 
 }

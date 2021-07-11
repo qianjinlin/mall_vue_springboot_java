@@ -95,4 +95,12 @@ public class UserServiceImpl implements UserService {
     public void updateUser(final UserBean userBean) {
         userMapper.updateUser(userBean);
     }
+
+    @Override
+    public List<UserBean> queryById(Integer id) {
+        UserBean userBean = new UserBean();
+        userBean.setId(id);
+        List<UserBean> list = userMapper.select(userBean);
+        return list;
+    }
 }

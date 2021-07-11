@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import com.example.demo.bean.UserBean;
 import com.example.demo.entry.UserEntry;
 import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author 29273
  */
 @Component
-public interface UserMapper {
+public interface UserMapper extends Mapper<UserBean> {
     /**
      * [登录]
      *

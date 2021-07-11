@@ -1,21 +1,30 @@
 package com.example.demo.bean;
 
 import lombok.Data;
-import lombok.ToString;
+import tk.mybatis.mapper.annotation.KeySql;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author qianjinlin
  */
 @Data
-@ToString
+@Table(name = "user")
 public class UserBean {
-    private int id;
+    @Id
+    @KeySql(useGeneratedKeys = true)
+    private Integer id;
+
     private String username;
     private String password;
     private String email;
     private String cellphone;
     private int state;
+    @Transient
     private String createTime;
+    @Transient
     private String updateTime;
     private String type;
 

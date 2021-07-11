@@ -48,5 +48,15 @@ public interface UserService {
      */
     void updateUser(final UserBean userBean);
 
+    /**
+     * [方法描述]
+     *
+     * @param id
+     * @return com.example.demo.bean.UserBean
+     * @author qianjinlin
+     * @date 2021/7/11 16:37
+     */
+    List<UserBean> queryById(Integer id);
+
 
 }

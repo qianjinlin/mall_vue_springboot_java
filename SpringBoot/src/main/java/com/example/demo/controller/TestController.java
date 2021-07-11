@@ -64,5 +64,11 @@ public class TestController {
 
     }
 
+    @RequestMapping("/query/{id}")
+    public Result<Object> queryById(@PathVariable("id") Integer id) {
+        return ResultUtils.getDataSuccess(userService.queryById(id));
+
+    }
+
 
 }
