@@ -9,9 +9,14 @@ import lombok.ToString;
 @Data
 @ToString
 public class UserBean {
-
     private int id;
     private String username;
     private String password;
+    private String email;
+    private String cellphone;
+    private int state;
+    private String createTime;
+    private String updateTime;
+    private String type;
 
 }
