@@ -2,12 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.UserMapper">
 
-        <select id="getUserInfo" resultType="com.example.demo.bean.UserBean">
+    <select id="getUserInfo" resultType="com.example.demo.bean.UserBean">
             select * from user where username = #{username} AND password = #{password};
         </select>
 
-        <select id="getAllUserList" resultType="com.example.demo.bean.UserBean">
-            select * from user;
+    <select id="getAllUserList" resultType="com.example.demo.entry.UserEntry">
+            select user.*,user_type.typeName AS typeName,user_status.statusName AS statusName
+            from user
+            left join user_type on user.type = user_type.type
+            left join user_status on user.state= user_status.status
+            group by user.username;
         </select>
+
+    <update id="updateUser" parameterType="com.example.demo.bean.UserBean">
+        update user
+        <set>
+            <if test="type != null and type!= ''">
+                user.type = #{type}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                user.id = #{id}
+            </if>
+        </where>
+    </update>
 
 </mapper>

@@ -1,19 +1,17 @@
 package com.example.demo.service.serviceimpl;
 
 import com.example.demo.bean.UserBean;
+import com.example.demo.entry.UserEntry;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.RedisUtil;
 import com.example.demo.utils.Result;
 import com.example.demo.utils.ResultUtils;
 import com.example.demo.utils.TokenUtils;
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.thymeleaf.spring5.context.SpringContextUtils;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -78,18 +76,23 @@ public class UserServiceImpl implements UserService {
             return ResultUtils.error(520,"没有Token","");
         }else{
             String accessToken  = (String) redisUtil.get("token");
-            if(Objects.equals(accessToken, token)){
+            if (Objects.equals(accessToken, token)) {
                 System.out.println("token删除");
                 redisUtil.delete("token");
-                return ResultUtils.success("退出登录成功","");
-            }else {
-                return ResultUtils.error(401,"Token不存在","");
+                return ResultUtils.success("退出登录成功", "");
+            } else {
+                return ResultUtils.error(401, "Token不存在", "");
             }
         }
     }
 
     @Override
-    public UserBean getAllUserList() {
+    public List<UserEntry> getAllUserList() {
         return userMapper.getAllUserList();
+    }
+
+    @Override
+    public void updateUser(final UserBean userBean) {
+        userMapper.updateUser(userBean);
     }
 }
